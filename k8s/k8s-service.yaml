@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svgtopng-service
+  labels:
+    app: svgtopng
+spec:
+  selector:
+    app: svgtopng
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: ClusterIP
