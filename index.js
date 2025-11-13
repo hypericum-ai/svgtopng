@@ -31,4 +31,10 @@ app.post('/convert', async (req, res) => {
   }
 });
 
+
+app.post('/colors', async (req, res) => {
+  console.log(req.body)
+  
+});
+
 app.listen(port);
