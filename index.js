@@ -33,8 +33,30 @@ app.post('/convert', async (req, res) => {
 
 
 app.post('/colors', async (req, res) => {
-  console.log(req.body)
-  
+  console.log(req.body);
+  const { spawn } = require('child_process');
+
+  const pythonProcess = spawn('python', ['colors.py', req.body['colors']]);
+
+  let output = '';
+
+  pythonProcess.stdout.on('data', (data) => {
+    output += data.toString(); 
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`Python script error: ${data}`);
+    res.status(500).send(`Color resolution failed: ${data}`);
+  });
+
+  pythonProcess.on('close', (code) => {
+    if (code === 0) {
+      res.status(200).send(output); 
+      console.log('Color resolution returned:', output  );
+    } else {
+      res.status(500).send(`Python process exited with code ${code}`);
+    }
+  });
 });
 
 app.listen(port);
