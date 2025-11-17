@@ -1,8 +1,10 @@
 FROM node:24-bullseye
 
-# Install git and Chromium
-RUN apt-get update && apt-get install -y git chromium \
+# Install git, Chromium, Python3 and pip
+RUN apt-get update && apt-get install -y git chromium python3 python3-pip \
   && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install colorcet seaborn
 
 # Create an unprivileged user
 RUN useradd -m -s /bin/bash appuser
