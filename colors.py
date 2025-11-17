@@ -30,12 +30,22 @@ def resolve_color_palette(colors, n_colors, desat):
     return palette 
 
 
+def safe_int(arg, default):
+    try:
+        return int(arg)
+    except:
+        return default
+
+def safe_float(arg, default):
+    try:
+        return float(arg)
+    except:
+        return default
+    
 colors = sys.argv[1] if len(sys.argv) > 1 else 'pastel'
-n_colors = 10
-desat = 1
+n_colors = safe_int(sys.argv[2] if len(sys.argv) > 2 else None, 10)
+desat = safe_float(sys.argv[3] if len(sys.argv) > 3 else None, 1.0)
 
 result = resolve_color_palette(colors, n_colors, desat)
-print(result)
-   
-    
-    
+# logger.info(f' colors={colors}, n_colors={n_colors}, desat={desat}')
+print(result)   

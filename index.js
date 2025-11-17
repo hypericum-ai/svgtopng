@@ -36,7 +36,7 @@ app.post('/colors', async (req, res) => {
   console.log(req.body);
   const { spawn } = require('child_process');
 
-  const pythonProcess = spawn('python', ['colors.py', req.body['colors']]);
+  const pythonProcess = spawn('python', ['colors.py', req.body['colors'] ?? 'pastel', req.body['n_colors'] ?? 10, req.body['desat'] ?? 1.0]);
 
   let output = '';
 
