@@ -10,10 +10,12 @@ RUN pip3 install colorcet seaborn
 RUN useradd -m -s /bin/bash appuser
 
 # Clone the repo as root
-RUN git clone https://github.com/hubbl-ai/svgtopng /app
+RUN git clone https://github.com/hypericum-ai/svgtopng /app
 
 # Set working directory
 WORKDIR /app
+
+RUN git checkout development
 
 # Install dependencies
 RUN npm install
