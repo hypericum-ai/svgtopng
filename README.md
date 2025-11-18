@@ -1,7 +1,7 @@
 The web service for doodl.ai conversion functions
 
 
-Web Serivice url: https://svgtopng.doodl.ai
+Web Service url: https://svgtopng.doodl.ai
 
 
 Example of Curl command to convert svg to png :
