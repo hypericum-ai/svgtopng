@@ -1,9 +1,12 @@
 const { convert } = require('convert-svg-to-png');
 const express = require('express');
+const fs = require('fs');
+const { marked } = require('marked');
 
 const port = process.env.PORT || 3000 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+
 
 app.post('/convert', async (req, res) => {
   console.log(req.body)
@@ -57,6 +60,18 @@ app.post('/colors', async (req, res) => {
       res.status(500).send(`Python process exited with code ${code}`);
     }
   });
+});
+
+app.get('/', (req, res) => {
+  try {
+    const md = fs.readFileSync('README.md', 'utf8');
+    const html = marked(md);
+    res.set('Content-Type', 'text/html');
+    res.send(html);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Failed to load README.md');
+  }
 });
 
 app.listen(port);
