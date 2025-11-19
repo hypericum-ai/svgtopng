@@ -1,10 +1,21 @@
-docker image url: docker.io/renilative/svgtopng:latest
+The web service for doodl.ai conversion functions
 
-hosted in dockerized container on https://dashboard.render.com/
 
-web serivice url: https://svgtopng-latest.onrender.com
+Web Service url: https://svgtopng.doodl.ai
 
 
 Example of Curl command to convert svg to png :
 
-curl --data-urlencode name@/Users/reni/Downloads/pie-chart-icon.svg --data-urlencode width=100 --data-urlencode height=100  -o image.png https://svgtopng-latest.onrender.com/convert
+```bash
+curl --data-urlencode name@/path/to/svg-file/filename.svg --data-urlencode width=100 --data-urlencode height=100 -o image.png https://svgtopng.doodl.ai/convert
+```
+
+Example of Curl command to get list of colors from seaborn names :
+
+```bash
+curl -X POST https://svgtopng.doodl.ai/colors \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "colors=cc.glasbey" \
+     -d "n_colors=4" \
+     -d "desat=1.0"
+```

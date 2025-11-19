@@ -44,3 +44,11 @@ Thumbs.db
 .angular
 .nx
 .prettierignore
+bin/
+include/
+lib/
+lib64/
+share/
+pyvenv.cfg
+__pycache__/
+*.pyc   
