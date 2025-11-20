@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: svgtopng-deployment
+  labels:
+    app: svgtopng
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: svgtopng
+  template:
+    metadata:
+      labels:
+        app: svgtopng
+    spec:
+      imagePullSecrets:
+      - name: nexus-secret
+      containers:
+      - name: svgtopng
+        image: nexus.hubbl.ai/doodl-svg2png
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
