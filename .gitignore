@@ -52,3 +52,4 @@ share/
 pyvenv.cfg
 __pycache__/
 *.pyc   
+.env

@@ -33,9 +33,13 @@ jobs:
 
       - name: Build and push
         run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} .
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
+          docker buildx build \
+            --secret id=GMAIL_USER,env=GMAIL_USER \
+            --secret id=GMAIL_APP_PASS,env=GMAIL_APP_PASS \
+            -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
+            -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} \
+            --push \
+            .
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
@@ -52,4 +56,3 @@ jobs:
         run: |
           kubectl set image deployment/svgtopng-deployment svgtopng=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} -n ${{ env.K8S_NAMESPACE }}
           kubectl rollout status deployment/svgtopng-deployment -n ${{ env.K8S_NAMESPACE }}
-
