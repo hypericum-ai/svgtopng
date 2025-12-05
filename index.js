@@ -3,11 +3,14 @@ const express = require("express");
 const fs = require("fs");
 const { marked } = require("marked");
 const nodemailer = require("nodemailer");
+const cors = require("cors");
 require("dotenv").config();
 
 const port = process.env.PORT || 3000;
 const app = express();
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.post("/convert", async (req, res) => {
   console.log(req.body);
@@ -80,8 +83,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/send-email", async (req, res) => {
-  const { name, email, company, message,to_email } = req.body;
+
   console.log("###Received contact form submission:", req.body);
+  const { name, email, company, message,to_email } = req.body;
   try {
 
      const transporter = nodemailer.createTransport({
