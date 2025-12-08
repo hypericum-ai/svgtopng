@@ -3,30 +3,18 @@ const express = require("express");
 const fs = require("fs");
 const { marked } = require("marked");
 const nodemailer = require("nodemailer");
-const cors = require("cors");
 require("dotenv").config();
 
 const port = process.env.PORT || 3000;
 const app = express();
-app.use(cors({
-  origin: '*',
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
-
 app.use(express.json({ limit: "10mb" }));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); 
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true); 
-  next();
-});
-
-app.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    return cors()(req, res, next);
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204); // No Content
   }
   next();
 });
