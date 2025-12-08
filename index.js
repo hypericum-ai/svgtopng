@@ -17,6 +17,14 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 app.use(express.json({ limit: "10mb" }));
 app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); 
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true); 
+  next();
+});
+
+app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
     return cors()(req, res, next);
   }
