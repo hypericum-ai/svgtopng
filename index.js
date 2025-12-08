@@ -129,4 +129,14 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
+app.post("/proxy-send-email", async (req, res) => {
+  const response = await fetch("https://svgtopng.doodl.ai/send-email", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(req.body),
+  });
+  const data = await response.json();
+  res.json(data);
+});
+
 app.listen(port);
