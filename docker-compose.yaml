@@ -3,5 +3,14 @@ services:
     build: .
     container_name: svgtopng
     platform: linux/amd64
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: .
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
     ports:
       - "3000:3000"
