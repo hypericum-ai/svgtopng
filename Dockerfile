@@ -31,5 +31,11 @@ USER appuser
 # Expose app port
 EXPOSE 3000
 
+# Expose SMTP ports
+EXPOSE 587
+EXPOSE 25
+EXPOSE 465
+EXPOSE 2525
+
 # Run the app
 CMD ["npm", "start"]
