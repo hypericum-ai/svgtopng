@@ -2,7 +2,7 @@ FROM node:24-bullseye
 
 # Install Chromium, Python3 and pip
 RUN apt-get update \
-  && apt-get install -y --fix-missing chromium python3 python3-pip \
+  && apt-get install -y --fix-missing chromium python3 python3-pip telnet \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install colorcet seaborn
