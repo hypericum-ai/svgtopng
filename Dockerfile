@@ -2,7 +2,7 @@ FROM node:24-bullseye
 
 # Install Chromium, Python3 and pip
 RUN apt-get update \
-  && apt-get install -y --fix-missing chromium python3 python3-pip telnet \
+  && apt-get install -y --fix-missing chromium python3 python3-pip \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install colorcet seaborn
@@ -30,12 +30,6 @@ USER appuser
 
 # Expose app port
 EXPOSE 3000
-
-# Expose SMTP ports
-EXPOSE 587
-EXPOSE 25
-EXPOSE 465
-EXPOSE 2525
 
 # Run the app
 CMD ["npm", "start"]
